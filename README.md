@@ -1,4 +1,6 @@
 <h1 align="center">
+  <img src="docs/images/logo.png" alt="Logo Deduplicação de Autores" width="140">
+  <br>
   Deduplicação de Autores
   <br>
   <sub><sup>Curadoria de dados de autoria científica - padrão-ouro</sup></sub>
@@ -135,20 +137,27 @@ Resultado esperado: **BUILD SUCCESS**, com 0 falhas.
 
 ---
 
-## Como usar no código
+## Testes (o que cobrimos)
 
-Não há interface gráfica; o uso é via API:
+Recursos de teste exigidos pela disciplina:
 
-```java
-List<RegistroAutor> entrada = List.of(
-    new RegistroAutor(28372, "Ana de Mattos Seabra"),
-    new RegistroAutor(582585, "AM Seabra")
-);
+| Recurso | Onde |
+|---------|------|
+| Testes unitários | `NormalizadorNomeTest` |
+| Testes parametrizados | `@ParameterizedTest` em todos os casos |
+| Testes de exceção | `ExcecaoTest` |
+| Categorias / tags | `@Tag` (`typographic`, `initials`, `exception`...) |
+| Suíte de testes | `SuiteTestes` |
 
-List<RegistroAutor> saida = Deduplicador.deduplicar(entrada);
-```
+Um arquivo de teste por caso do enunciado:
 
-Na `saida`, os dois registros viram `28372 - Ana de Mattos Seabra`.
+| Caso | Arquivo |
+|:----:|---------|
+| 1 - Tipográfico | `VariacaoTipograficaTest` |
+| 2 - Sobrenome + iniciais | `SobrenomeIniciaisTest` |
+| 3 - Partícula "de" | `ParticulasAbreviacoesTest` |
+| 4 - Iniciais agrupadas | `IniciaisAgrupadasTest` |
+| 5 - Menor ID | `UnificacaoIdTest` |
 
 ---
 
