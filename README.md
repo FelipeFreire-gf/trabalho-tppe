@@ -33,6 +33,8 @@
 
 ## Equipe
 
+<p align="center">Nome e <b>matrícula</b> de cada integrante do grupo:</p>
+
 <table align="center">
   <tr>
     <td align="center">
@@ -120,6 +122,14 @@ Ciclo **Red → Green**:
 
 ---
 
+## Ficha técnica
+
+- **Linguagem:** Java 21 (orientada a objetos)
+- **Framework de testes:** JUnit 5 - versão **5.10.2**
+- **Build / execução:** Maven
+
+---
+
 ## Como rodar os testes
 
 ```bash
@@ -131,6 +141,13 @@ Rodar só uma categoria (usamos `@Tag`):
 ```bash
 mvn test -Dgroups=exception      # só testes de exceção
 mvn test -Dgroups=parametrized   # só testes parametrizados
+```
+
+Rodar a suíte de um caso específico:
+
+```bash
+mvn test -Dtest=Caso1TipograficoSuite   # só o Caso 1
+mvn test -Dtest=Caso5UnificacaoIdSuite  # só o Caso 5
 ```
 
 Resultado esperado: **BUILD SUCCESS**, com 0 falhas.
@@ -147,17 +164,17 @@ Recursos de teste exigidos pela disciplina:
 | Testes parametrizados | `@ParameterizedTest` em todos os casos |
 | Testes de exceção | `ExcecaoTest` |
 | Categorias / tags | `@Tag` (`typographic`, `initials`, `exception`...) |
-| Suíte de testes | `SuiteTestes` |
+| Suíte de testes | uma por caso (ex.: `Caso1TipograficoSuite`) |
 
-Um arquivo de teste por caso do enunciado:
+Cada caso tem seu teste e sua suíte, com **pelo menos 2 conjuntos de dados**:
 
-| Caso | Arquivo |
-|:----:|---------|
-| 1 - Tipográfico | `VariacaoTipograficaTest` |
-| 2 - Sobrenome + iniciais | `SobrenomeIniciaisTest` |
-| 3 - Partícula "de" | `ParticulasAbreviacoesTest` |
-| 4 - Iniciais agrupadas | `IniciaisAgrupadasTest` |
-| 5 - Menor ID | `UnificacaoIdTest` |
+| Caso | Teste | Suíte do item |
+|:----:|-------|---------------|
+| 1 - Tipográfico | `VariacaoTipograficaTest` | `Caso1TipograficoSuite` |
+| 2 - Sobrenome + iniciais | `SobrenomeIniciaisTest` | `Caso2SobrenomeIniciaisSuite` |
+| 3 - Partícula "de" | `ParticulasAbreviacoesTest` | `Caso3ParticulasSuite` |
+| 4 - Iniciais agrupadas | `IniciaisAgrupadasTest` | `Caso4IniciaisAgrupadasSuite` |
+| 5 - Menor ID | `UnificacaoIdTest` | `Caso5UnificacaoIdSuite` |
 
 ---
 
