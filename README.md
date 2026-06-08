@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/Java-21-E76F00?style=flat-square&logo=openjdk&logoColor=white" alt="Java 21"/>
   <img src="https://img.shields.io/badge/JUnit-5-25A162?style=flat-square&logo=junit5&logoColor=white" alt="JUnit 5"/>
   <img src="https://img.shields.io/badge/Maven-build-C71A36?style=flat-square&logo=apachemaven&logoColor=white" alt="Maven"/>
-  <img src="https://img.shields.io/badge/testes-53%20passando-2E7D32?style=flat-square" alt="Testes"/>
+  <img src="https://img.shields.io/badge/testes-104%20execu%C3%A7%C3%B5es%20passando-2E7D32?style=flat-square" alt="Testes"/>
 </p>
 
 <p align="center">
@@ -127,6 +127,7 @@ Ciclo **Red → Green**:
 - **Linguagem:** Java 21
 - **Framework de testes:** JUnit 5 - versão **5.10.2**
 - **Build / execução:** Maven
+- **IDEs:** VS Code "atente às intruções" e Eclipse
 
 ---
 
@@ -144,6 +145,8 @@ O Eclipse lê o `pom.xml` e baixa o JUnit sozinho - não precisa do Maven no PAT
    → **Run As → JUnit Test**.
 4. Para rodar **um caso/classe/suíte**: botão direito no arquivo desejado
    (ex.: `Caso1TipograficoSuite`) → **Run As → JUnit Test**.
+5. Para rodar **tudo por uma suíte só**: botão direito em
+   `TodosOsTestesSuite` → **Run As → JUnit Test**.
 
 Resultado esperado: a aba **JUnit** com a **barra verde** e **0 failures / 0 errors**.
 
@@ -206,6 +209,8 @@ A suíte foi pensada para casar com o ciclo de TDD e com os recursos exigidos pe
   com `-Dgroups=...`.
 - **Suíte por caso.** Cada caso tem uma suíte (ex.: `Caso1TipograficoSuite`)
   que agrega seus testes, facilitando rodar/avaliar um caso isoladamente.
+  Há ainda uma **suíte mestra** (`TodosOsTestesSuite`) que agrega todas as
+  classes de teste em um único ponto de execução.
 
 Recursos de teste exigidos pela disciplina:
 
@@ -268,5 +273,6 @@ trabalho-tppe/
         ├── Caso4IniciaisAgrupadasSuite.java #   Caso 4 - suíte
         ├── UnificacaoIdTest.java            #   Caso 5 - teste
         ├── Caso5UnificacaoIdSuite.java      #   Caso 5 - suíte
-        └── ExcecaoTest.java                 #   testes de exceção
+        ├── ExcecaoTest.java                 #   testes de exceção
+        └── TodosOsTestesSuite.java          #   suíte mestra (agrega tudo)
 ```
