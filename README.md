@@ -189,6 +189,24 @@ Resultado esperado: **BUILD SUCCESS**, com 0 falhas.
 
 ## Testes que cobrimos
 
+### Como modelamos os testes
+
+A suíte foi pensada para casar com o ciclo de TDD e com os recursos exigidos pela disciplina. As principais decisões de modelagem:
+
+- **Testes parametrizados (`@ParameterizedTest`).** Cada caso de
+  deduplicação tem várias formas de escrever o mesmo nome. Em vez de um método
+  por variação, usamos um único método que recebe **vários conjuntos de dados**
+  (via `@CsvSource` / `@MethodSource`). Isso explica por que o relatório mostra
+  **104 execuções** apesar de termos ~53 **métodos**: cada linha de dado de um
+  teste parametrizado conta como uma execução separada.
+- **Testes unitários puros.** O `NormalizadorNomeTest` valida o algoritmo (remoção de acentos, pontuação, partículas) de forma isolada, sem
+  depender das demais classes.
+- **Testes de exceção.** O `ExcecaoTest` garante o comportamento de erro (nome nulo/vazio, id inválido, lista nula) usando `assertThrows`.
+- **Categorias / tags (`@Tag`).** Os testes são marcados por tema (`typographic`, `initials`, `exception`...), permitindo rodar só um grupo
+  com `-Dgroups=...`.
+- **Suíte por caso.** Cada caso tem uma suíte (ex.: `Caso1TipograficoSuite`)
+  que agrega seus testes, facilitando rodar/avaliar um caso isoladamente.
+
 Recursos de teste exigidos pela disciplina:
 
 | Recurso | Onde |
