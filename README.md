@@ -124,13 +124,46 @@ Ciclo **Red → Green**:
 
 ## Ficha técnica
 
-- **Linguagem:** Java 21 (orientada a objetos)
+- **Linguagem:** Java 21
 - **Framework de testes:** JUnit 5 - versão **5.10.2**
 - **Build / execução:** Maven
 
 ---
 
 ## Como rodar os testes
+
+### Opção A - Eclipse (não precisa do Maven)
+
+O Eclipse lê o `pom.xml` e baixa o JUnit sozinho - não precisa do Maven no PATH.
+
+1. **File → Import... → Maven → Existing Maven Projects**.
+2. Em **Root Directory**, selecione a pasta do projeto e confirme que o
+   `pom.xml` aparece marcado; clique em **Finish** (na primeira vez ele baixa
+   o JUnit, pode demorar um pouco).
+3. Para rodar **tudo**: botão direito na pasta `src/test/java` (ou no projeto)
+   → **Run As → JUnit Test**.
+4. Para rodar **um caso/classe/suíte**: botão direito no arquivo desejado
+   (ex.: `Caso1TipograficoSuite`) → **Run As → JUnit Test**.
+
+Resultado esperado: a aba **JUnit** com a **barra verde** e **0 failures / 0 errors**.
+
+> Se a opção *JUnit Test* não aparecer, faça botão direito no projeto →
+> **Maven → Update Project...** para reconstruir o classpath, e confirme um
+> **JDK 21+** em *Properties → Java Build Path*.
+
+Exemplo de resultado no Eclipse:
+
+<p align="center">
+  <img src="docs/images/testes.png" alt="Execução dos testes no Eclipse - 104 execuções, 0 falhas, 0 erros" width="420">
+</p>
+
+<p align="center">
+  <sub><b>104 execuções de teste passando</b> (métodos simples + cada caso dos testes parametrizados), com 0 falhas e 0 erros.</sub>
+</p>
+
+### Opção B - Terminal / (VS Code precisa instalar o Maven)
+
+No terminal (ou no terminal integrado do VS Code), na raiz do projeto:
 
 ```bash
 mvn test
@@ -154,7 +187,7 @@ Resultado esperado: **BUILD SUCCESS**, com 0 falhas.
 
 ---
 
-## Testes (o que cobrimos)
+## Testes que cobrimos
 
 Recursos de teste exigidos pela disciplina:
 
@@ -192,7 +225,30 @@ Cada caso tem seu teste e sua suíte, com **pelo menos 2 conjuntos de dados**:
 ## Estrutura
 
 ```
-src/main/java/br/unb/tppe/dedup/   -> código da solução
-src/test/java/br/unb/tppe/dedup/   -> testes JUnit 5 (1 arquivo por caso)
-pom.xml                            -> Maven + JUnit 5
+trabalho-tppe/
+├── pom.xml                                  # Maven + JUnit 5
+├── README.md
+├── ENUNCIADO.md                             # enunciado da disciplina
+├── docs/
+│   └── images/                              # logo e captura dos testes
+└── src/
+    ├── main/java/br/unb/tppe/dedup/         # código da solução
+    │   ├── RegistroAutor.java               #   registro (id + nome) + validação
+    │   ├── NormalizadorNome.java            #   normaliza o nome em peças comparáveis
+    │   ├── ComparadorAutor.java             #   diz se dois nomes são a mesma pessoa
+    │   └── Deduplicador.java                #   agrupa iguais e unifica
+    └── test/java/br/unb/tppe/dedup/         # testes JUnit 5 (1 arquivo por caso)
+        ├── ApoioTestes.java                 #   utilitários de teste
+        ├── NormalizadorNomeTest.java        #   Caso base - testes unitários
+        ├── VariacaoTipograficaTest.java     #   Caso 1 - teste
+        ├── Caso1TipograficoSuite.java       #   Caso 1 - suíte
+        ├── SobrenomeIniciaisTest.java       #   Caso 2 - teste
+        ├── Caso2SobrenomeIniciaisSuite.java #   Caso 2 - suíte
+        ├── ParticulasAbreviacoesTest.java   #   Caso 3 - teste
+        ├── Caso3ParticulasSuite.java        #   Caso 3 - suíte
+        ├── IniciaisAgrupadasTest.java       #   Caso 4 - teste
+        ├── Caso4IniciaisAgrupadasSuite.java #   Caso 4 - suíte
+        ├── UnificacaoIdTest.java            #   Caso 5 - teste
+        ├── Caso5UnificacaoIdSuite.java      #   Caso 5 - suíte
+        └── ExcecaoTest.java                 #   testes de exceção
 ```
