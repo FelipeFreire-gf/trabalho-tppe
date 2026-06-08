@@ -55,4 +55,42 @@ class VariacaoTipograficaTest {
         assertEquals(10, saida.get(0).getId());
         assertEquals(10, saida.get(1).getId());
     }
+    
+    @Test
+    @DisplayName("Monica St'anna NAO deve ser igual a Monica Sant'anna (sobrenome diferente)")
+    void monicaStannaNaoEquivaleASantanna() {
+        List<RegistroAutor> saida = ApoioTestes.executar(ApoioTestes.pares(
+                433095, "Mônica Hirata Sant'anna",
+                746942, "Mônica Hirata St'anna"));
+
+        // sobrenomes diferentes -> IDs distintos, registros separados
+        assertEquals(433095, saida.get(0).getId());
+        assertEquals(746942, saida.get(1).getId());
+    }
+
+    @Test
+    @DisplayName("Veronica Noreira NAO deve ser igual a Veronica Moreira (sobrenome diferente)")
+    void veronicaNoreiraNaoEquivaleAMoreira() {
+        List<RegistroAutor> saida = ApoioTestes.executar(ApoioTestes.pares(
+                243352, "Verônica de Oliveira Moreira",
+                746941, "Verônica de Oliveira Noreira"));
+
+        assertEquals(243352, saida.get(0).getId());
+        assertEquals("Verônica de Oliveira Moreira", saida.get(0).getNome());
+        assertEquals(746941, saida.get(1).getId());
+        assertEquals("Verônica de Oliveira Noreira", saida.get(1).getNome());
+    }
+
+    @ParameterizedTest
+    @Tag("parametrized")
+    @CsvSource({
+            "Monica Hirata St'anna, Mônica Hirata Sant'anna",
+            "Verônica de Oliveira Noreira, Verônica de Oliveira Moreira"
+    })
+    @DisplayName("Nomes com sobrenome diferente nao devem ser unificados")
+    void nomesComSobrenomeDiferenteNaoSaoUnificados(String nomeA, String nomeB) {
+        List<RegistroAutor> saida = ApoioTestes.executar(ApoioTestes.pares(100, nomeA, 200, nomeB));
+        assertEquals(100, saida.get(0).getId());
+        assertEquals(200, saida.get(1).getId());
+    }
 }

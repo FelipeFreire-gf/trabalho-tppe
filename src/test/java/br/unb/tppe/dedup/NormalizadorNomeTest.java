@@ -60,4 +60,50 @@ class NormalizadorNomeTest {
     void todaVariacaoTemTresPartes(String nome) {
         assertEquals(3, normalizador.tokens(nome).size());
     }
+    
+    @Test
+    void nomeComCraseNaParticulaEPadronizado() {
+        // crase no apostrofo deve virar apóstrofo comum
+        assertEquals(List.of("sant'anna"), valores("Sant`anna"));
+    }
+
+    @Test
+    void nomeComVirgulaTrocaOrdem() {
+        // "Souza, Luiz" vira "Luiz Souza" antes de tokenizar
+        assertEquals(List.of("luiz", "oliveira", "souza"), valores("Souza, Luiz de Oliveira"));
+    }
+
+    @Test
+    void nomeComApenasIniciaisRetornaUmaPartePorLetra() {
+        // "L. O." deve resultar em duas iniciais
+        List<NormalizadorNome.Parte> partes = normalizador.tokens("L. O.");
+        assertEquals(2, partes.size());
+        assertEquals(NormalizadorNome.Tipo.INICIAL, partes.get(0).getTipo());
+        assertEquals(NormalizadorNome.Tipo.INICIAL, partes.get(1).getTipo());
+    }
+
+    @ParameterizedTest
+    @Tag("parametrized")
+    @CsvSource({
+            "de, 0",
+            "da, 0",
+            "do, 0",
+            "dos, 0",
+            "das, 0"
+    })
+    void particulasConhecidasSaoIgnoradas(String particula, int esperado) {
+        assertEquals(esperado, normalizador.tokens(particula).size());
+    }
+
+    @ParameterizedTest
+    @Tag("parametrized")
+    @CsvSource({
+            "Monica,  monica",
+            "Mônica,  monica",
+            "Gonçalves, goncalves",
+            "Luíza, luiza"
+    })
+    void semAcentosENormalizadoCorretamente(String entrada, String esperado) {
+        assertEquals(List.of(esperado.trim()), valores(entrada));
+    }
 }
