@@ -133,7 +133,7 @@ Ciclo **Red → Green**:
 
 ## Como rodar os testes
 
-### Opção A - Eclipse (não precisa do Maven)
+### Opção A - Eclipse (Build automático)
 
 O Eclipse lê o `pom.xml` e baixa o JUnit sozinho - não precisa do Maven no PATH.
 
