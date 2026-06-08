@@ -199,9 +199,19 @@ A suíte foi pensada para casar com o ciclo de TDD e com os recursos exigidos pe
 - **Testes parametrizados (`@ParameterizedTest`).** Cada caso de
   deduplicação tem várias formas de escrever o mesmo nome. Em vez de um método
   por variação, usamos um único método que recebe **vários conjuntos de dados**
-  (via `@CsvSource` / `@MethodSource`). Isso explica por que o relatório mostra
-  **104 execuções** apesar de termos ~53 **métodos**: cada linha de dado de um
-  teste parametrizado conta como uma execução separada.
+  (via `@CsvSource` / `@ValueSource`). Por isso o número de **execuções** é maior
+  que o número de **métodos**: cada linha de dado de um teste parametrizado conta
+  como uma execução separada.
+
+> **Execuções (69 vs 104).** Rodando a suíte mestra
+> `TodosOsTestesSuite`, cada classe de teste roda **uma única vez** → **69
+> execuções** (o número real e sem duplicação). Já ao mandar rodar *tudo* pela
+> pasta `src/test/java`, o Eclipse executa as 7 classes de teste **e também** as
+> 5 suítes de caso (`Caso1TipograficoSuite`, etc.), que *re-executam* as mesmas
+> classes dos casos — inflando o total para **104** (`69 + 35` execuções dos
+> casos contadas em dobro). Em ambos os cenários todos os testes passam; a
+> diferença é apenas dupla contagem, não testes a mais.
+
 - **Testes unitários puros.** O `NormalizadorNomeTest` valida o algoritmo (remoção de acentos, pontuação, partículas) de forma isolada, sem
   depender das demais classes.
 - **Testes de exceção.** O `ExcecaoTest` garante o comportamento de erro (nome nulo/vazio, id inválido, lista nula) usando `assertThrows`.
@@ -274,5 +284,5 @@ trabalho-tppe/
         ├── UnificacaoIdTest.java            #   Caso 5 - teste
         ├── Caso5UnificacaoIdSuite.java      #   Caso 5 - suíte
         ├── ExcecaoTest.java                 #   testes de exceção
-        └── TodosOsTestesSuite.java          #   suíte mestra (agrega tudo)
+        └── TodosOsTestesSuite.java          #   suíte mestra
 ```
