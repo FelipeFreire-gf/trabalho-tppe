@@ -13,7 +13,9 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         ParticulasAbreviacoesTest.class,
         IniciaisAgrupadasTest.class,
         UnificacaoIdTest.class,
-        ExcecaoTest.class
+        ExcecaoTest.class,
+        RegistroAutorTest.class,
+        ComparadorAutorTest.class
 })
 class TodosOsTestesSuite {
 }
