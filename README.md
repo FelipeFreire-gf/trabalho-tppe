@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/Java-21-E76F00?style=flat-square&logo=openjdk&logoColor=white" alt="Java 21"/>
   <img src="https://img.shields.io/badge/JUnit-5-25A162?style=flat-square&logo=junit5&logoColor=white" alt="JUnit 5"/>
   <img src="https://img.shields.io/badge/Maven-build-C71A36?style=flat-square&logo=apachemaven&logoColor=white" alt="Maven"/>
-  <img src="https://img.shields.io/badge/testes-104%20execu%C3%A7%C3%B5es%20passando-2E7D32?style=flat-square" alt="Testes"/>
+  <img src="https://img.shields.io/badge/testes-112%20execu%C3%A7%C3%B5es%20passando-2E7D32?style=flat-square" alt="Testes"/>
 </p>
 
 <p align="center">
@@ -157,11 +157,11 @@ Resultado esperado: a aba **JUnit** com a **barra verde** e **0 failures / 0 err
 Exemplo de resultado no Eclipse:
 
 <p align="center">
-  <img src="docs/images/testes.png" alt="Execução dos testes no Eclipse - 104 execuções, 0 falhas, 0 erros" width="420">
+  <img src="docs/images/testes.png" alt="Execução dos testes no Eclipse - 112 execuções, 0 falhas, 0 erros" width="420">
 </p>
 
 <p align="center">
-  <sub><b>104 execuções de teste passando</b> (métodos simples + cada caso dos testes parametrizados), com 0 falhas e 0 erros.</sub>
+  <sub><b>112 execuções de teste passando</b> (métodos simples + cada caso dos testes parametrizados), com 0 falhas e 0 erros.</sub>
 </p>
 
 ### Opção B - Terminal / (VS Code precisa instalar o Maven)
@@ -203,16 +203,16 @@ A suíte foi pensada para casar com o ciclo de TDD e com os recursos exigidos pe
   que o número de **métodos**: cada linha de dado de um teste parametrizado conta
   como uma execução separada.
 
-> **Execuções (69 vs 104).** Rodando a suíte mestra
-> `TodosOsTestesSuite`, cada classe de teste roda **uma única vez** → **69
+> **Execuções (77 vs 112).** Rodando a suíte mestra
+> `TodosOsTestesSuite`, cada classe de teste roda **uma única vez** → **77
 > execuções** (o número real e sem duplicação). Já ao mandar rodar *tudo* pela
 > pasta `src/test/java`, o Eclipse executa as 7 classes de teste **e também** as
 > 5 suítes de caso (`Caso1TipograficoSuite`, etc.), que *re-executam* as mesmas
-> classes dos casos — inflando o total para **104** (`69 + 35` execuções dos
+> classes dos casos — inflando o total para **112** (`77 + 35` execuções dos
 > casos contadas em dobro). Em ambos os cenários todos os testes passam; a
 > diferença é apenas dupla contagem, não testes a mais.
 
-- **Testes unitários puros.** O `NormalizadorNomeTest` valida o algoritmo (remoção de acentos, pontuação, partículas) de forma isolada, sem
+- **Testes unitários puros.** As classes `NormalizadorNomeTest`, `RegistroAutorTest` e `ComparadorAutorTest` validam os algoritmos e entidades (remoção de acentos, pontuação, compatibilidade, getters) de forma isolada, sem
   depender das demais classes.
 - **Testes de exceção.** O `ExcecaoTest` garante o comportamento de erro (nome nulo/vazio, id inválido, lista nula) usando `assertThrows`.
 - **Categorias / tags (`@Tag`).** Os testes são marcados por tema (`typographic`, `initials`, `exception`...), permitindo rodar só um grupo
@@ -226,7 +226,7 @@ Recursos de teste exigidos pela disciplina:
 
 | Recurso | Onde |
 |---------|------|
-| Testes unitários | `NormalizadorNomeTest` |
+| Testes unitários | `NormalizadorNomeTest`, `RegistroAutorTest`, `ComparadorAutorTest` |
 | Testes parametrizados | `@ParameterizedTest` em todos os casos |
 | Testes de exceção | `ExcecaoTest` |
 | Categorias / tags | `@Tag` (`typographic`, `initials`, `exception`...) |
@@ -272,6 +272,8 @@ trabalho-tppe/
     │   └── Deduplicador.java                #   agrupa iguais e unifica
     └── test/java/br/unb/tppe/dedup/         # testes JUnit 5 (1 arquivo por caso)
         ├── ApoioTestes.java                 #   utilitários de teste
+        ├── RegistroAutorTest.java           #   testes unitários de RegistroAutor
+        ├── ComparadorAutorTest.java         #   testes unitários de ComparadorAutor
         ├── NormalizadorNomeTest.java        #   Caso base - testes unitários
         ├── VariacaoTipograficaTest.java     #   Caso 1 - teste
         ├── Caso1TipograficoSuite.java       #   Caso 1 - suíte
