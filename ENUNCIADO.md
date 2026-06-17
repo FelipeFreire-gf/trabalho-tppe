@@ -321,28 +321,27 @@ pertence pelo número de matrícula.
 
 
 
-| Grupo # | Matrículas dos componentes                            | Extrair Método                           | Substituir Método por Objeto Método                  | Extrair classe    | 
-|:-------:|:------------------------------------------------------|:-----------------------------------------|:-----------------------------------------------------|:---------------   |
-|    1    |                                                       |                                          |                                                      |                   |
-|    2    |                                                       |                                          |                                                      |                   |
-|    3    |                                                       |                                          |                                                      |                   |
-|    4    |                                                       |                                          |                                                      |                   |
-|    5    |                                                       |                                          |                                                      |                   |
-|    6    |                                                       |                                          |                                                      |                   |
-|    7    |                                                       |                                          |                                                      |                   |
-|    8    |                                                       |                                          |                                                      |                   |
-|    9    |                                                       |                                          |                                                      |                   |
-|   10    |                                                       |                                          |                                                      |                   |
-|   11    |                                                       |                                          |                                                      |                   |
-|   12    |                                                       |                                          |                                                      |                   |
-|   13    |                                                       |                                          |                                                      |                   |
-|   14    |                                                       |                                          |                                                      |                   |
-|   15    |                                                       |                                          |                                                      |                   |
-|   16    |                                                       |                                          |                                                      |                   |
-|   17    |                                                       |                                          |                                                      |                   |
-|   18    |                                                       |                                          |                                                      |                   |
-|   19    |                                                       |                                          |                                                      |                   |
-|   20    |                                                       |                                          |                                                      |                   |
+| Grupo # | Matrículas dos componentes                            | Extrair Método                                     | Substituir Método por Objeto Método                      | Extrair classe         | 
+|:-------:|:------------------------------------------------------|:---------------------------------------------------|:---------------------------------------------------------|:-----------------------|
+|    1    | 180132466, 202046102, 211062240, 222037700, 231026975 | Deduplicador::deduplicar()                         | NormalizadorNome::tokens()                               | NormalizadorNome       |
+|    2    | 190030801, 200022199, 221029230                       | CuradorDeDados::corresponde_caso2()                | DeduplicadorNomes::deduplicar_caso4()                    | CuradorDeDados         |
+|    3    | 211031682, 211061860, 211061897, 221022696            | Deduplicador::sao_equivalentes_tipografia()        | Deduplicador::unificar_ids()                             | Deduplicador           |
+|    4    | 200049020, 211030710, 211030765, 211031708            | Case1Rule::apply()                                 | Case2Rule::apply()                                       | Case3Rule              |
+|    5    | 211061672, 211062016, 211062769, 211063185            | ResolvedorTipografico::resolver()                  | ResolvedorParticulas::resolver()                         | ResolverdorIDs         |
+|    6    | 200019520, 202017521, 202045965, 211030729, 211030747 | ParticleNormalizer::matches()                      | InitialsMatcher::matches()                               | ParticleNormalizer     |
+|    7    | 190102683, 211030756, 231026886                       | CuradorRepositorio::encontrarDuplicatas()          | DetectorDuplicatas::nomesEquivalentes()                  | CuradorRepositorio     |
+|    8    | 200038028, 222026377, 222026715                       | AuthorDeduplicator::\_author\_with\_smallest\_id() | AuthorDeduplicator::\_add\_author                        | NameMatcher            |
+|    9    | 180113585, 202017147, 211039312, 221008300            | UnificadorIdAutor::unificarRegistros()             | DeduplicadorSobrenomeIniciais::unificar()                | NormalizadorNomes      |
+|   10    | 231012058, 231026840, 231026901                       | IniciaisAgrupadasComSobrenome::gerarChaveAgrupada()| ParticulasDeEAbreviacoesOpcionais::gerarChaveAbreviada() | SobrenomeComIniciais   |
+|   11    | 190085045, 190091444, 190113901, 211039546, 222022162 | Curador::normalizarParticulasEPonto()              | Curador::compararTermos()                                | Curador                |
+|   12    | 180023179, 190036761, 202017049, 211061574, 211062446 | CuradorDados::processar()                          | CuradorDados::verificarIniciaisOrdenadas()               | CuradorDados           |
+|   13    | 180100271, 202016266, 211031870, 211041240, 222024283 | NormalizadorIniciais::chaveComparacao()            | NormalizadorIniciaisAgrupadas::chaveComparacao()         | NormalizadorParticulas |
+|   14    | 221031130                                             | Caso2SobrenomeIniciais::extract\_name\_parts()     | Caso3Particulas::cluster\_records()                      | Caso4IniciaisAgrupadas |
+|   15    | 211030630                                             | Deduplicador::deduplicar()                         | Deduplicador::saoIguais()                                | Deduplicador           |
+|   16    | 202046229, 211039573, 211061805                       | Curador::assinatura()                              | Curador::pontuar_nome()                                  | Curador                |
+|   17    | 221031354, 231011426, 231028989, 231035769            | \_classificar()                                    | equivalentes()                                           | normalizacao (:warning: Não usaram classes. |
+|   18    | 202023627, 221008481, 231011785, 231026474, 231037709 | AuthorCurator::\_curate\_by\_identity()            | AuthorCurator::curation\_punctuation()                   | AuthorCurator          |
+|   19    | 221008285, 221021868, 222006801                       | Caso2SobrenomeIniciais::\_assinatura()             | Caso3Particulas::sao\_equivalentes()                     | Caso4IniciaisAgrupadas |
 
 ## Formato de entrega: 
 
@@ -366,4 +365,4 @@ posteriores serão desconsiderados.
 - Os testes continuam efetivos e passando? 
 
 ## Data-limite para entrega: 
-- xx/xx/xxxx, xx:xxhs. 
+- 29/06/2026, 23:59hs. 
