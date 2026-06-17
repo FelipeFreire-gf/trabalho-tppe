@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class NormalizadorNome {
 
-    private static final Set<String> PARTICULAS =
+    static final Set<String> PARTICULAS =
             Set.of("de", "da", "do", "dos", "das", "e", "del", "di");
 
     public enum Tipo {
@@ -33,20 +33,12 @@ public class NormalizadorNome {
         }
     }
 
+    /**
+     * Extrai as partes (tokens) de um nome.
+     * Corpo original decomposto por Extrair Classe (TP2) para {@link ExtratorTokens}.
+     */
     public List<Parte> tokens(String nome) {
-        String preparado = reordenarSobrenome(padronizarApostrofos(nome));
-        List<Parte> partes = new ArrayList<>();
-        for (String bruto : preparado.split("\\s+")) {
-            for (String pedaco : separarIniciais(bruto)) {
-                String limpo = semAcentos(pedaco).replace(".", "").toLowerCase();
-                if (limpo.isEmpty() || PARTICULAS.contains(limpo)) {
-                    continue;
-                }
-                Tipo tipo = limpo.length() == 1 ? Tipo.INICIAL : Tipo.COMPLETO;
-                partes.add(new Parte(tipo, limpo));
-            }
-        }
-        return partes;
+        return new ExtratorTokens(this, nome).extrair();
     }
 
     public String padronizarApostrofos(String texto) {
@@ -64,11 +56,11 @@ public class NormalizadorNome {
         return umEspaco(direita + " " + esquerda);
     }
 
-    private String semAcentos(String texto) {
+    String semAcentos(String texto) {
         return Normalizer.normalize(texto, Normalizer.Form.NFD).replaceAll("\\p{M}+", "");
     }
 
-    private List<String> separarIniciais(String token) {
+    List<String> separarIniciais(String token) {
         String nucleo = token.replace(".", "");
         List<String> partes = new ArrayList<>();
         if (nucleo.length() >= 2 && tudoMaiusculo(nucleo)) {
