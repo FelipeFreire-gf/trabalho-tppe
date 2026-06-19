@@ -5,6 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Responsável pela orquestração da normalização de nomes.
+ *
+ * TP2 - Refatoracao aplicada:
+ *
+ * [Refact] Extrair Classe, NormalizadorNome::PreparadorNome
+ *
+ */
 public class NormalizadorNome {
 
     static final Set<String> PARTICULAS =
@@ -40,24 +48,16 @@ public class NormalizadorNome {
     public List<Parte> tokens(String nome) {
         return new ExtratorTokens(this, nome).extrair();
     }
-
     public String padronizarApostrofos(String texto) {
-        return texto.replace('`', '\'').replace('´', '\'')
-                .replace('‘', '\'').replace('’', '\'');
+        return PreparadorNome.padronizarApostrofos(texto);
     }
 
     public String reordenarSobrenome(String nome) {
-        int virgula = nome.indexOf(',');
-        if (virgula < 0) {
-            return umEspaco(nome);
-        }
-        String esquerda = nome.substring(0, virgula).trim();
-        String direita = nome.substring(virgula + 1).trim();
-        return umEspaco(direita + " " + esquerda);
+        return PreparadorNome.reordenarSobrenome(nome);
     }
 
     String semAcentos(String texto) {
-        return Normalizer.normalize(texto, Normalizer.Form.NFD).replaceAll("\\p{M}+", "");
+        return PreparadorNome.semAcentos(texto);
     }
 
     List<String> separarIniciais(String token) {
@@ -84,6 +84,6 @@ public class NormalizadorNome {
     }
 
     private String umEspaco(String texto) {
-        return texto.trim().replaceAll("\\s+", " ");
+        return PreparadorNome.umEspaco(texto);
     }
 }
