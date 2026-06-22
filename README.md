@@ -8,7 +8,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Disciplina-TPPE%20(FGA0242)-1565C0?style=flat-square" alt="Disciplina"/>
-  <img src="https://img.shields.io/badge/Trabalho-TP1%20·%20Etapa%201%20(TDD)-0277BD?style=flat-square" alt="Etapa"/>
+  <img src="https://img.shields.io/badge/Trabalho-Etapas%201%20(TDD)%20%2B%202%20(Refatora%C3%A7%C3%A3o)-0277BD?style=flat-square" alt="Etapa"/>
   <img src="https://img.shields.io/badge/UnB-FCTE-00838F?style=flat-square" alt="UnB FCTE"/>
 </p>
 
@@ -118,7 +118,21 @@ Ciclo **Red → Green**:
    "stub" vazias. Resultado: **tudo falhou**.
 2. **Green** - implementamos o mínimo necessário (`NormalizadorNome`,
    `ComparadorAutor`, `Deduplicador`) até **todos passarem**.
-3. Sem refatoração formal - isso é tarefa do TP2.
+3. Refatoração formal - feita na **Etapa 2 (TP2)**, ver seção abaixo.
+
+---
+
+## Refatorações aplicadas (Etapa 2 - TP2)
+
+Na Etapa 2 o código do TP1 foi refatorado **sem alterar o comportamento**: os
+77 testes continuam passando (barra verde). A equipe 1 aplicou as três operações
+indicadas no enunciado:
+
+| Operação | Alvo | Resultado |
+|----------|------|-----------|
+| **Extrair Método** | `Deduplicador::deduplicar()` | passos do agrupamento isolados em métodos auxiliares menores |
+| **Substituir Método por Objeto-Método** | `NormalizadorNome::tokens()` | lógica movida para a classe `ExtratorTokens` (a API pública de `NormalizadorNome` permanece igual) |
+| **Extrair Classe** | `NormalizadorNome` | operações de preparação textual movidas para `PreparadorNome` |
 
 ---
 
@@ -250,6 +264,8 @@ Cada caso tem seu teste e sua suíte, com **pelo menos 2 conjuntos de dados**:
 |--------|------------------|
 | `RegistroAutor`   | Registro de autoria (`id` + `nome`), com validação |
 | `NormalizadorNome`| Normaliza o nome em "peças" comparáveis (sem acento, sem pontuação, partículas opcionais) |
+| `ExtratorTokens`  | Objeto-Método que extrai os tokens de um nome (refatoração TP2 de `NormalizadorNome::tokens()`) |
+| `PreparadorNome`  | Preparação textual: padroniza apóstrofos, remove acentos, normaliza espaços (extraída de `NormalizadorNome` no TP2) |
 | `ComparadorAutor` | Diz se dois nomes são a mesma pessoa |
 | `Deduplicador`    | Agrupa os iguais e gera os registros unificados |
 
@@ -268,6 +284,8 @@ trabalho-tppe/
     ├── main/java/br/unb/tppe/dedup/         # código da solução
     │   ├── RegistroAutor.java               #   registro (id + nome) + validação
     │   ├── NormalizadorNome.java            #   normaliza o nome em peças comparáveis
+    │   ├── ExtratorTokens.java              #   objeto-método de extração de tokens (TP2)
+    │   ├── PreparadorNome.java              #   preparação textual extraída de NormalizadorNome (TP2)
     │   ├── ComparadorAutor.java             #   diz se dois nomes são a mesma pessoa
     │   └── Deduplicador.java                #   agrupa iguais e unifica
     └── test/java/br/unb/tppe/dedup/         # testes JUnit 5 (1 arquivo por caso)
